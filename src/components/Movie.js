@@ -34,6 +34,7 @@ class Movie extends React.Component {
             Back
           </Link>
           <h2>{movie.title}</h2>
+          <h3>{movie.overview}</h3>
           <img
             src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
             alt="movie-poster"
