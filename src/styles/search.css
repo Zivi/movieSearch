@@ -1,0 +1,8 @@
+.search-box {
+  width: 80%;
+  height: 30px;
+  font-size: 16px;
+  border: 1px solid #404547;
+  border-radius: 5px;
+  padding: 5px;
+}

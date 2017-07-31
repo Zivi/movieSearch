@@ -2,7 +2,6 @@ import React from 'react';
 import '../styles/search.css';
 
 function Search(props) {
-
   return (
      <input
       className="search-box"
@@ -12,6 +11,5 @@ function Search(props) {
       value={props.value}
     />
   )
-
 }
 export default Search;

@@ -1,0 +1,52 @@
+.nav-back {
+  text-decoration: none;
+  color: #222;
+}
+
+.movie-content {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.movie-info-container {
+  padding-left: 10px;
+}
+
+.movie-extra-info {
+  color: #9DA2A6;
+  padding-right: 10px;
+}
+
+.movie-genre {
+  padding-left: 10px;
+}
+
+.movie-release-date {
+  padding-left: 2px;
+  padding-top: 15px;
+}
+
+.movie-overview {
+  margin-top: 15px;
+}
+
+.movie-website-link {
+  margin-top: 15px;
+  display: block;
+}
+
+@media (max-width: 500px) {
+  .movie-content {
+    flex-direction: column-reverse;
+  }
+
+  .movie-info-container {
+    padding-left: 0px;
+  }
+
+  .movie-image-container {
+    padding-top: 15px;
+    margin: auto;
+    width: 185px;
+  }
+}

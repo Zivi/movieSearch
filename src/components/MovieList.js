@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/list.css';
+import '../styles/movieList.css';
 import Search from './Search';
 
-class List extends React.Component {
-  constructor({match, location}) {
+class MovieList extends React.Component {
+  constructor({ match, location }) {
     super();
 
     const urlParse = location.search.match(/q=([^&]*)&page=(\d*)/);
@@ -22,9 +22,9 @@ class List extends React.Component {
 
   handlSearchChange(event) {
     const searchTerm = event.target.value;
-
     this.setState({
-      currentSearch: searchTerm
+      currentSearch: searchTerm,
+      pageNum: 1
     }, () => this.loadMovies());
   }
 
@@ -42,9 +42,10 @@ class List extends React.Component {
             page: res.page,
             pageCount: res.total_pages
           }
-        })
+        }, () => this.setListHeading());
       })
     } else {
+      // Show popular movies
       fetch(`https://api.themoviedb.org/3/movie/popular?api_key=5b19221d20b929615d236692cea743e4&language=en-US&page=${pageNum}`)
       .then(response => response.json())
       .then(res => {
@@ -54,17 +55,22 @@ class List extends React.Component {
             page: res.page,
             pageCount: res.total_pages
           }
-        })
+        }, () => this.setListHeading());
       })
     }
-    this.listHeading();
   }
 
-  listHeading() {
+  setListHeading() {
     if (this.state.currentSearch) {
-      this.setState({
-        listHeading: `Showing search results for ${this.state.currentSearch}`
-      })
+      if (this.state.movies.length === 0) {
+        this.setState({
+          listHeading: `No search results for ${this.state.currentSearch}`
+        })
+      } else {
+        this.setState({
+          listHeading: `Showing search results for "${this.state.currentSearch}"`
+        })
+      }
     } else {
       this.setState({
         listHeading: 'Popular Movies'
@@ -104,18 +110,21 @@ class List extends React.Component {
             <li key={movie.id} >
               <Link
                 to={`/movie/${movie.id}`}
+                className="movie-item"
               >
-                {movie.title}
+                {movie.title}  ({movie.release_date.slice(0,4)})
               </Link>
             </li>
           )}
         </ul>
-        <div className="page">
-          <button onClick={this.handlePreviousClick.bind(this)} disabled={this.isPreviousDisabled()}>
+        <div visibility="false" className="page">
+          <button className="button-nav button-previous"onClick={this.handlePreviousClick.bind(this)} disabled={this.isPreviousDisabled()}>
             Previous
           </button>
-          Page {resultCount.page} of {resultCount.pageCount}
-          <button onClick={this.handleNextClick.bind(this)} disabled={this.isNextDisabled()}>
+          <span className="page-location">
+            Page {resultCount.page} of {resultCount.pageCount}
+          </span>
+          <button className="button-nav button-next" onClick={this.handleNextClick.bind(this)} disabled={this.isNextDisabled()}>
             Next
           </button>
           </div>
@@ -124,4 +133,4 @@ class List extends React.Component {
   }
 }
 
-export default List;
+export default MovieList;
