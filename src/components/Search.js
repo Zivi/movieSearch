@@ -10,6 +10,6 @@ function Search(props) {
       onChange={props.onChange}
       value={props.value}
     />
-  )
+  );
 }
 export default Search;

@@ -20,8 +20,8 @@ class Movie extends React.Component {
     .then(res => {
       this.setState({
         movie: res
-      })
-    })
+      });
+    });
   }
 
   render() {
@@ -65,7 +65,7 @@ class Movie extends React.Component {
           </div>
         </div>
       : <div>Loading...</div>
-    )
+    );
   }
 }
 export default Movie;

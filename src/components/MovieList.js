@@ -4,7 +4,7 @@ import '../styles/movieList.css';
 import Search from './Search';
 
 class MovieList extends React.Component {
-  constructor({ match, location }) {
+  constructor({ location }) {
     super();
 
     const urlParse = location.search.match(/q=([^&]*)&page=(\d*)/);
@@ -13,7 +13,7 @@ class MovieList extends React.Component {
       resultCount: {},
       currentSearch: urlParse ? urlParse[1] : '',
       pageNum: urlParse ? +urlParse[2] : 1
-    }
+    };
   }
 
   componentDidMount() {
@@ -43,7 +43,7 @@ class MovieList extends React.Component {
             pageCount: res.total_pages
           }
         }, () => this.setListHeading());
-      })
+      });
     } else {
       // Show popular movies
       fetch(`https://api.themoviedb.org/3/movie/popular?api_key=5b19221d20b929615d236692cea743e4&language=en-US&page=${pageNum}`)
@@ -56,7 +56,7 @@ class MovieList extends React.Component {
             pageCount: res.total_pages
           }
         }, () => this.setListHeading());
-      })
+      });
     }
   }
 
@@ -65,16 +65,16 @@ class MovieList extends React.Component {
       if (this.state.movies.length === 0) {
         this.setState({
           listHeading: `No search results for ${this.state.currentSearch}`
-        })
+        });
       } else {
         this.setState({
           listHeading: `Showing search results for "${this.state.currentSearch}"`
-        })
+        });
       }
     } else {
       this.setState({
         listHeading: 'Popular Movies'
-      })
+      });
     }
   }
 
@@ -129,7 +129,7 @@ class MovieList extends React.Component {
           </button>
           </div>
       </div>
-    )
+    );
   }
 }
 
